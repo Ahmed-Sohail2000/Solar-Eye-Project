@@ -150,7 +150,7 @@ def preprocess_custom_image(image_path):
   return image
 
 # create a function to plot the predicted image against the actual image
-def pred_and_plot(model, image_path, class_names):
+def pred_and_plot(model, image_path, class_names = class_names):
   '''
   Imports an image located at image path, makesa prediction with the model
   and plots the image with the predicted class as the title
