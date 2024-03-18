@@ -184,6 +184,7 @@ def create_callbacks(dir_name, experiment_name):
 
   import datetime
   import tensorflow as tf
+  import os
 
   # create a directory to store the experiments of the models as logs with the current date and time
   log_dir = dir_name + "/" + experiment_name + "/" + datetime.datetime.now().strftime('%Y%m%d-%H%M%S')
