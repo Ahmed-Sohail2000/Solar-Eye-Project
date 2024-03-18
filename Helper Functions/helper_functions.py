@@ -197,7 +197,7 @@ def create_callbacks(dir_name, experiment_name):
   # create the model checkpoint
   model_checkpoint = tf.keras.callbacks.ModelCheckpoint(filepath = os.path.join(dir_name, experiment_name),
                                                         monitor = 'val_loss',
-                                                        verbose = 1, 
+                                                        verbose = 0, 
                                                         save_best_only = True, 
                                                         mode = 'min',
                                                         save_weights_only = True)
