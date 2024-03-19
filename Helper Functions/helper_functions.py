@@ -113,42 +113,6 @@ def view_loss_accuracy(History):
   plt.ylabel('Loss')
   plt.legend()
 
-# Lets create a function that will take a custom image and be processed to then be able to make predictions by our trained model
-def preprocess_custom_image(image_path):
-  '''
-  Takes a custom image and preprocess it by:
-  1. Setting the target size to (224, 224, 3) -> (Width, Height, Color Channels)
-  2. Normalizing the image (values between 0 & 1)
-  3. Expanding the dimension of the image (1, 224, 224, 3) -> (batch_size, width, height, color channels)
-  '''
-
-  # import the libraries
-  import tensorflow as tf
-  import matplotlib.image as mpimg
-  import matplotlib.pyplot as plt
-
-  # read the image
-  local_image_path = tf.keras.utils.get_file(origin = image_path)
-
-  # read the image from the image path and set the target size
-  image = tf.keras.preprocessing.image.load_img(local_image_path, target_size=(224, 224))
-
-  # Convert the image to a NumPy array
-  image = tf.keras.preprocessing.image.img_to_array(image)
-
-  # 2. reshape the image to [1, 224, 224, 3] -> [batch_size, width, height, color channels]
-  image = tf.expand_dims(image, axis = 0)
-
-  # 3. normalize the image (values between 0 & 1)
-  image = image / 255.
-
-  # plot the image
-  plt.imshow(image[0])  # reduce the dimension to (224, 224, 3)
-  plt.axis(False)
-  print(f'Image shape: {image.shape}')
-
-  return image
-
 # create a function to plot the predicted image against the actual image
 def pred_and_plot(model, image_path, class_names):
   '''
@@ -159,6 +123,42 @@ def pred_and_plot(model, image_path, class_names):
   # import library
   import tensorflow as tf
   import numpy as np
+
+  # Lets create a function that will take a custom image and be processed to then be able to make predictions by our trained model
+  def preprocess_custom_image(image_path):
+    '''
+    Takes a custom image and preprocess it by:
+    1. Setting the target size to (224, 224, 3) -> (Width, Height, Color Channels)
+    2. Normalizing the image (values between 0 & 1)
+    3. Expanding the dimension of the image (1, 224, 224, 3) -> (batch_size, width, height, color channels)
+    '''
+
+    # import the libraries
+    import tensorflow as tf
+    import matplotlib.image as mpimg
+    import matplotlib.pyplot as plt
+
+    # read the image
+    local_image_path = tf.keras.utils.get_file(origin = image_path)
+
+    # read the image from the image path and set the target size
+    image = tf.keras.preprocessing.image.load_img(local_image_path, target_size=(224, 224))
+
+    # Convert the image to a NumPy array
+    image = tf.keras.preprocessing.image.img_to_array(image)
+
+    # 2. reshape the image to [1, 224, 224, 3] -> [batch_size, width, height, color channels]
+    image = tf.expand_dims(image, axis = 0)
+
+    # 3. normalize the image (values between 0 & 1)
+    image = image / 255.
+
+    # plot the image
+    plt.imshow(image[0])  # reduce the dimension to (224, 224, 3)
+    plt.axis(False)
+    print(f'Image shape: {image.shape}')
+
+    return image
     
   # import the target image and preprocess it by calling the function (preprocess_custom_image())
   image = preprocess_custom_image(image_path)
