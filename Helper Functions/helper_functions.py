@@ -131,7 +131,7 @@ def preprocess_custom_image(image_path):
   local_image_path = tf.keras.utils.get_file(origin = image_path)
 
   # read the image from the image path and set the target size
-  image = tf.keras.preprocessing.image.load_img(local_image_path, target_size=(480, 480))
+  image = tf.keras.preprocessing.image.load_img(local_image_path, target_size=(224, 224))
 
   # Convert the image to a NumPy array
   image = tf.keras.preprocessing.image.img_to_array(image)
