@@ -8,7 +8,7 @@ import os
 project_dir = '/content/my-streamlit-app'
 
 # Load the saved model from the model folder
-model_path = os.path.join(project_dir, model, 'resnet50v2_fine_tuned.h5')
+model_path = os.path.join(project_dir, 'model', 'resnet50v2_fine_tuned.h5')
 model = tf.keras.models.load_model(model_path)
 
 # Title of the app
