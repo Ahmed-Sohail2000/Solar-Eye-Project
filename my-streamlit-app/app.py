@@ -5,7 +5,7 @@ from PIL import Image
 import os
 
 # define the project directory
-project_dir = '/content/my-streamlit-app'
+project_dir = '/my-streamlit-app'
 
 # Load the saved model from the model folder
 model_path = os.path.join(project_dir, 'model', 'resnet50v2_fine_tuned.h5')
