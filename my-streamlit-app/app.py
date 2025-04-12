@@ -5,14 +5,14 @@ from PIL import Image
 import os
 
 # Load the saved model from the model folder
-model_path = os.path.join("my-streamlit-app", "model", "resnet50v2_fine_tuned.h5")
+model_path = os.path.join('my-streamlit-app', 'model', 'resnet50v2_fine_tuned.h5')
 model = tf.keras.models.load_model(model_path)
 
 # Title of the app
 st.title("Solar Panel Fault Detection")
 
 # Description of the app
-st.write("This app uses a fine-tuned ResNet50V2 model to detect different types of faults in solar panels' thermal imagery.")
+st.write("This app uses a fine-tuned ResNet50V2 model to detect different types of faults in solar panel thermal imagery.")
 
 # File uploader to upload an image
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "png", "jpeg"])
@@ -34,22 +34,15 @@ if uploaded_file is not None:
     # Predict with the model
     predictions = model.predict(image_array)
     
-    # Print prediction values for debugging
-    st.write(f"Predictions: {predictions}")
-
     # Get the class with the highest probability
-    class_idx = np.argmax(predictions, axis=1)  # Get index of highest probability class
-    st.write(f"class_idx shape: {class_idx.shape}")  # Debugging: Print shape of class_idx
-    st.write(f"class_idx value: {class_idx}")  # Debugging: Print class_idx value
+    class_idx = np.argmax(predictions, axis=1)
+    class_prob = np.max(predictions, axis=1)
 
-    # Check if predictions are valid
-    if class_idx.size > 0 and class_idx[0] is not None:
-        # Map class index to labels (assuming you have a list of labels)
-        class_labels = ["Clean", "Cracked", "Damaged", "Dusty", "Snow"]  # Example class labels
-        predicted_label = class_labels[class_idx[0]]  # Access the predicted label
+    # Map class index to labels (using your class names)
+    class_labels = ['Cell', 'Cell-Multi', 'Cracking', 'Diode', 'Diode-Multi', 'Hot-Spot', 'Hot-Spot-Multi', 
+                    'No-Anomaly', 'Offline-Module', 'Shadowing', 'Soiling', 'Vegetation']  # Replace with your actual labels
+    predicted_label = class_labels[class_idx[0]]
 
-        # Display the prediction result
-        st.write(f"Prediction: {predicted_label}")
-        st.write(f"Probability: {np.max(predictions)*100:.2f}%")
-    else:
-        st.error("No valid prediction could be made.")
+    # Display the prediction result
+    st.write(f"Prediction: {predicted_label}")
+    st.write(f"Probability: {class_prob[0]*100:.2f}%")
