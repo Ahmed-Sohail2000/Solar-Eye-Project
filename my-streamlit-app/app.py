@@ -38,17 +38,15 @@ if uploaded_file is not None:
     st.write(f"Predictions: {predictions}")
 
     # Get the class with the highest probability
-    class_idx = np.argmax(predictions, axis=1).flatten()
+    class_idx = np.argmax(predictions, axis=1)  # Get index of highest probability class
+    st.write(f"class_idx shape: {class_idx.shape}")  # Debugging: Print shape of class_idx
+    st.write(f"class_idx value: {class_idx}")  # Debugging: Print class_idx value
 
-    # Debugging output
-    st.write(f"class_idx shape: {class_idx.shape}")
-    st.write(f"class_idx value: {class_idx}")
-
-    # Ensure the predictions are valid
-    if predictions.size > 0 and len(class_idx) > 0:
+    # Check if predictions are valid
+    if class_idx.size > 0 and class_idx[0] is not None:
         # Map class index to labels (assuming you have a list of labels)
         class_labels = ["Clean", "Cracked", "Damaged", "Dusty", "Snow"]  # Example class labels
-        predicted_label = class_labels[class_idx[0]]
+        predicted_label = class_labels[class_idx[0]]  # Access the predicted label
 
         # Display the prediction result
         st.write(f"Prediction: {predicted_label}")
